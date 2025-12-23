@@ -1,55 +1,64 @@
 body {
-  background: radial-gradient(circle at top, #1e2150, #0b0d2b);
-  font-family: "Segoe UI", sans-serif;
-  color: white;
   margin: 0;
   padding: 30px;
-  overflow-x: auto;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1e2150, #0b0d2b);
+  color: white;
 }
 
 .title {
   text-align: center;
+  font-size: 34px;
   margin-bottom: 30px;
-  font-size: 32px;
 }
 
-#tree-simple {
-  width: 100%;
-  height: auto;
+#chart-container {
+  height: 90vh;
 }
 
-/* Node Card */
-.node {
-  background: #ffffff;
-  color: #1f2937;
-  border-radius: 14px;
-  padding: 14px;
-  width: 150px;
+/* PERSON CARD */
+.person {
+  width: 160px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px 10px 10px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.35);
   cursor: pointer;
+  position: relative;
 }
 
-/* Avatar */
-.node img {
-  width: 50px;
-  margin-bottom: 10px;
+.person img {
+  width: 48px;
+  margin-bottom: 8px;
 }
 
-/* Name */
-.node .name {
+.person .name {
   font-weight: 600;
   font-size: 14px;
+  color: #111827;
 }
 
-/* Role */
-.node .role {
+.person .role {
   font-size: 12px;
   color: #6b7280;
 }
 
-/* Connector style */
-.Treant .connector {
-  stroke-width: 4px;
+/* COLOR BAR */
+.person::after {
+  content: "";
+  height: 6px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-radius: 0 0 16px 16px;
+  background: var(--color);
+}
+
+/* CURVED LINKS */
+.link path {
+  stroke-width: 5px;
+  fill: none;
   stroke-linecap: round;
 }
