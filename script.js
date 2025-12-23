@@ -2,49 +2,59 @@ const API_URL = "https://script.google.com/macros/s/AKfycbxFG2fl43rAlhx-l2Mt39L7
 
 fetch(API_URL)
   .then(res => res.json())
-  .then(data => renderTree(buildTree(data)));
+  .then(data => {
+    const nodes = data.map(item => ({
+      id: item.id,
+      name: item.name,
+      parent: item.parent_id || null,
+      role: item.role,
+      color: item.color
+    }));
+    
+    makeOrgChart(nodes);
+  });
 
-function buildTree(data) {
-  const map = {};
-  const roots = [];
+function makeOrgChart(nodes) {
+  const datamap = {};
 
-  data.forEach(p => map[p.id] = { ...p, children: [] });
+  nodes.forEach(n => {
+    datamap[n.id] = {
+      id: n.id,
+      name: n.name,
+      title: n.role,
+      color: n.color
+    };
+  });
 
-  data.forEach(p => {
-    if (p.parent_id) {
-      map[p.parent_id]?.children.push(map[p.id]);
-    } else {
-      roots.push(map[p.id]);
+  nodes.forEach(n => {
+    if (n.parent) {
+      if (!datamap[n.parent].children) {
+        datamap[n.parent].children = [];
+      }
+      datamap[n.parent].children.push(datamap[n.id]);
     }
   });
 
-  return roots;
+  const rootNodes = nodes.filter(n => !n.parent).map(n => datamap[n.id]);
+
+  $("#chart-container").orgchart({
+    'data': rootNodes[0],
+    'nodeContent': 'title',
+    'pan': true,
+    'zoom': true,
+    'createNode': function($node, data) {
+      $node.css("border-color", colorMap(data.color));
+      $node.find(".title").css("background-color", colorMap(data.color));
+    }
+  });
 }
 
-function renderTree(roots) {
-  const container = document.getElementById("tree");
-
-  function renderLevel(nodes) {
-    const level = document.createElement("div");
-    level.className = "level";
-
-    nodes.forEach(n => {
-      const card = document.createElement("div");
-      card.className = `card ${n.color || "root"}`;
-      card.innerHTML = `
-        <h4>${n.name}</h4>
-        <div class="role">${n.role || ""}</div>
-      `;
-      level.appendChild(card);
-
-      if (n.children.length) {
-        container.appendChild(level);
-        renderLevel(n.children);
-      }
-    });
-
-    container.appendChild(level);
+function colorMap(color) {
+  switch(color) {
+    case 'yellow': return '#f5c400';
+    case 'green':  return '#59d98e';
+    case 'blue':   return '#4db5ff';
+    case 'purple': return '#b36bff';
+    default:       return '#888';
   }
-
-  renderLevel(roots);
 }
