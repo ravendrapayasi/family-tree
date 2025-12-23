@@ -18,35 +18,86 @@
 //   { id: 11, parentId: 5, name: "Child D2", role: "", color: "#a78bfa" }
 // ];
 
+// const SHEET_URL =
+//   "https://script.google.com/macros/s/AKfycbxFG2fl43rAlhx-l2Mt39L7GzSawzELK1JHbdJsrNu456MGY7I9Xy83qfqcXr2bqCP3/exec";
+
+// fetch(SHEET_URL)
+//   .then(res => res.json())
+//   .then(data => buildTree(data));
+
+// const chart = new d3.OrgChart()
+//   .container("#chart-container")
+//   .data(data)
+//   .nodeWidth(() => 180)
+//   .nodeHeight(() => 120)
+//   .childrenMargin(() => 60)
+//   .compact(false)
+//   .nodeContent((d) => {
+//     return `
+//       <div class="person" style="--color:${d.data.color}">
+//         <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" />
+//         <div class="name">${d.data.name}</div>
+//         <div class="role">${d.data.role || ""}</div>
+//       </div>
+//     `;
+//   })
+//   .linkUpdate(function(d, i, arr) {
+//     d3.select(this)
+//       .attr("stroke", d.data.color);
+//   })
+//   .onNodeClick((d) => {
+//     chart.toggleCollapse(d);
+//   });
+
+// chart.render();
+
 const SHEET_URL =
   "https://script.google.com/macros/s/AKfycbxFG2fl43rAlhx-l2Mt39L7GzSawzELK1JHbdJsrNu456MGY7I9Xy83qfqcXr2bqCP3/exec";
 
 fetch(SHEET_URL)
   .then(res => res.json())
-  .then(data => buildTree(data));
+  .then(rows => {
+    initTree(rows);
+  })
+  .catch(err => console.error("Sheet fetch error:", err));
 
-const chart = new d3.OrgChart()
-  .container("#chart-container")
-  .data(data)
-  .nodeWidth(() => 180)
-  .nodeHeight(() => 120)
-  .childrenMargin(() => 60)
-  .compact(false)
-  .nodeContent((d) => {
-    return `
+function initTree(rows) {
+
+  // Convert Google Sheet rows → org chart format
+  const data = rows.map(r => ({
+    id: r.id,
+    parentId: r.parentId || null,
+    name: r.name,
+    role: r.role,
+    color: r.color || "#60a5fa"
+  }));
+
+  const chart = new d3.OrgChart()
+    .container("#chart-container")
+    .data(data)
+    .nodeWidth(() => 180)
+    .nodeHeight(() => 120)
+    .childrenMargin(() => 60)
+    .compact(false)
+
+    .nodeContent(d => `
       <div class="person" style="--color:${d.data.color}">
-        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" />
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"/>
         <div class="name">${d.data.name}</div>
         <div class="role">${d.data.role || ""}</div>
       </div>
-    `;
-  })
-  .linkUpdate(function(d, i, arr) {
-    d3.select(this)
-      .attr("stroke", d.data.color);
-  })
-  .onNodeClick((d) => {
-    chart.toggleCollapse(d);
-  });
+    `)
 
-chart.render();
+    .linkUpdate(function(d) {
+      d3.select(this)
+        .attr("stroke", d.data.color)
+        .attr("stroke-width", 5);
+    })
+
+    .onNodeClick(d => {
+      chart.toggleCollapse(d);
+    });
+
+  chart.render();
+}
+
