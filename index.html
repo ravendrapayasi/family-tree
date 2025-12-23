@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Family Tree</title>
+
+  <!-- Treant CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/treant-js@1.0/Treant.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/css/jquery.orgchart.min.css" />
 </head>
 <body>
 
-<h1>🌳 Family Tree</h1>
+  <h1 class="title">🌳 Family Tree</h1>
 
-<div id="chart-container"></div>
+  <div id="tree-simple"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.9/js/jquery.orgchart.min.js"></script>
-<script src="script.js"></script>
+  <!-- JS Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/treant-js@1.0/Treant.min.js"></script>
 
+  <!-- Custom JS -->
+  <script src="tree.js"></script>
 </body>
 </html>

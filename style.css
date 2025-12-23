@@ -1,37 +1,55 @@
 body {
-  background: linear-gradient(180deg,#0f1230,#141852);
-  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #1e2150, #0b0d2b);
+  font-family: "Segoe UI", sans-serif;
   color: white;
+  margin: 0;
+  padding: 30px;
+  overflow-x: auto;
+}
+
+.title {
   text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
 }
 
-.tree {
-  margin-top: 50px;
+#tree-simple {
+  width: 100%;
+  height: auto;
 }
 
-.level {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 60px;
+/* Node Card */
+.node {
+  background: #ffffff;
+  color: #1f2937;
+  border-radius: 14px;
+  padding: 14px;
+  width: 150px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  cursor: pointer;
 }
 
-.card {
-  background: white;
-  color: black;
-  border-radius: 12px;
-  padding: 15px;
-  width: 160px;
-  margin: 0 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+/* Avatar */
+.node img {
+  width: 50px;
+  margin-bottom: 10px;
 }
 
-.root { border-top: 6px solid #fff; }
-.yellow { border-top: 6px solid #f5c400; }
-.green  { border-top: 6px solid #59d98e; }
-.blue   { border-top: 6px solid #4db5ff; }
-.purple { border-top: 6px solid #b36bff; }
+/* Name */
+.node .name {
+  font-weight: 600;
+  font-size: 14px;
+}
 
-.role {
+/* Role */
+.node .role {
   font-size: 12px;
-  opacity: .7;
+  color: #6b7280;
+}
+
+/* Connector style */
+.Treant .connector {
+  stroke-width: 4px;
+  stroke-linecap: round;
 }
