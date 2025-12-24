@@ -92,14 +92,22 @@ function addMember() {
 
   const nextId = maxId + 1;
 
+  startLoader();
+
   fetch(
   `${SHEET_URL}?action=create&id=${nextId}&parentId=${parentId || ""}&name=${encodeURIComponent(name)}&role=${encodeURIComponent(role)}&color=${color}`
 )
   .then(res => res.json())
   .then(() => {
     clearForm();
+    stopLoader();
     showMessage("Member added successfully ✅");
     loadTree();
+  })
+  .catch(err => {
+    console.error(err);
+    stopLoader();
+    alert("Something went wrong. Please try again.");
   });
 }
 
@@ -120,5 +128,17 @@ function showMessage(text) {
   setTimeout(() => {
     msg.style.display = "none";
   }, 3000);
+}
+
+function startLoader() {
+  document.getElementById("loader").style.display = "inline-block";
+  document.getElementById("btnText").textContent = "Adding...";
+  document.getElementById("addBtn").disabled = true;
+}
+
+function stopLoader() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("btnText").textContent = "Add Member";
+  document.getElementById("addBtn").disabled = false;
 }
 

@@ -28,7 +28,10 @@
   </select>
   <input id="color" placeholder="Color (eg #22c55e)" />
 
-  <button onclick="addMember()">Add Member</button>
+  <button id="addBtn" onclick="addMember()">
+    <span id="btnText">Add Member</span>
+    <span id="loader" class="loader" style="display:none;"></span>
+  </button>
 </div>
 
 <div id="message" class="message success" style="display:none;">
