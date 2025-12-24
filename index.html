@@ -11,9 +11,26 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1 class="title">🌳 Payasi Pariwar</h1>
+<h1 class="title">🌳 Payasi Pariwar Vansawali</h1>
+
+<!-- ADD MEMBER FORM -->
+<div class="form-container">
+  <h3>Add Family Member</h3>
+
+  <input id="name" placeholder="Name" />
+  <input id="role" placeholder="Role / Branch" />
+  <!-- PARENT DROPDOWN -->
+  <select id="parentId">
+    <option value="">-- Select Parent (Root if empty) --</option>
+  </select>
+  <input id="color" placeholder="Color (eg #22c55e)" />
+
+  <button onclick="addMember()">Add Member</button>
+</div>
+
 <div id="chart-container"></div>
 
 <script src="script.js"></script>

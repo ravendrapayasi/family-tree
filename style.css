@@ -62,3 +62,44 @@ body {
   fill: none;
   stroke-linecap: round;
 }
+
+.form-container {
+  max-width: 420px;
+  margin: 0 auto 30px;
+  background: #111827;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.form-container h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e;
+  font-weight: bold;
+  cursor: pointer;
+}
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
