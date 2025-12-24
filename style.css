@@ -103,3 +103,16 @@ body {
   border: none;
   outline: none;
 }
+.message {
+  max-width: 420px;
+  margin: 15px auto;
+  padding: 12px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.message.success {
+  background: #22c55e;
+  color: #052e16;
+}

@@ -98,6 +98,7 @@ function addMember() {
   .then(res => res.json())
   .then(() => {
     clearForm();
+    showMessage("Member added successfully ✅");
     loadTree();
   });
 }
@@ -110,3 +111,14 @@ function clearForm() {
   });
   document.getElementById("parentId").value = "";
 }
+
+function showMessage(text) {
+  const msg = document.getElementById("message");
+  msg.textContent = "✅ " + text;
+  msg.style.display = "block";
+
+  setTimeout(() => {
+    msg.style.display = "none";
+  }, 3000);
+}
+
