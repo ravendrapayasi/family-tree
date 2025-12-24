@@ -92,23 +92,14 @@ function addMember() {
 
   const nextId = maxId + 1;
 
-  const payload = {
-    id: nextId,
-    parentId: parentId || "",
-    name,
-    role,
-    color
-  };
-
-  fetch(SHEET_URL + "?action=create", {
-    method: "POST",
-    body: JSON.stringify(payload)
-  })
-    .then(res => res.json())
-    .then(() => {
-      clearForm();
-      loadTree();
-    });
+  fetch(
+  `${SHEET_URL}?action=create&id=${nextId}&parentId=${parentId || ""}&name=${encodeURIComponent(name)}&role=${encodeURIComponent(role)}&color=${color}`
+)
+  .then(res => res.json())
+  .then(() => {
+    clearForm();
+    loadTree();
+  });
 }
 
 
